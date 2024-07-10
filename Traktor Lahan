@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesan Penggarapan Lahan Online</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f0f0f0;
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"], select, input[type="number"] {
+        padding: 10px;
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        position: relative;
+    }
+    h2 {
+        font-size: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    button {
+        padding: 10px 30px;
+        background-color: #25D366;
+        color: white;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .form-container {
+        display: none;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        width: 90%;
+        max-width: 400px;
+        margin: auto;
+        margin-top: 20px;
+        position: relative;
+    }
+    .form-container.show {
+        display: block;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .close:hover {
+        color: black;
+        cursor: pointer;
+    }
+    .error-message {
+        color: red;
+        font-size: 16px;
+        margin-bottom: 10px;
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 15px 20px;
+        border: 1px solid red;
+        border-radius: 5px;
+        display: none;
+        width: 90%;
+        max-width: 300px;
+        box-sizing: border-box;
+        z-index: 999;
+    }
+    #whatsappBtn {
+        background-color: #25D366;
+        color: white;
+        padding: 10px 30px;
+        text-decoration: none;
+        text-align: center;
+        border: none;
+        cursor: pointer;
+        display: block;
+        margin-top: 10px;
+        border-radius: 14px;
+    }
+    #whatsappBtn:hover {
+        background-color: #128C7E;
+    }
+    .confirmation-container {
+        display: none;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    .confirmation-box {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+    .confirmation-box h3 {
+        margin-top: 0;
+        font-size: 24px;
+        border-bottom: 2px solid #25D366;
+        padding-bottom: 10px;
+    }
+    .confirmation-box p {
+        margin: 10px 0;
+        font-size: 18px;
+        text-align: left;
+    }
+    .confirmation-box .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .confirmation-box .actions button {
+        margin-left: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+    }
+    .confirmation-box .actions button:first-child {
+        margin-left: 0;
+    }
+    .confirmation-box .actions button.cancel {
+        background-color: #f44336;
+        color: white;
+    }
+    .confirmation-box .actions button.confirm {
+        background-color: #4CAF50;
+        color: white;
+    }
+    #dropdown {
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        position: absolute;
+        background-color: white;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        width: calc(100% - 20px);
+        z-index: 1000;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    #dropdown li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    #dropdown li:hover {
+        background-color: #f0f0f0;
+    }
+
+    .hidden {
+        display: none;
+    }
+    
+    .table-container {
+    overflow-x: auto;
+    position: relative;
+  }
+  
+  /* Blog Post Styles */
+.blog-post {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-out, opacity 0.5s ease; /* Tambahkan transisi opacity */
+}
+
+.blog-post h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.blog-post p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .garap {
+    animation: pulse 1s infinite alternate;
+  }
+  @keyframes pulse {
+    0% { background-color: white; }
+    100% { background-color: lightgreen; }
+  }
+  .total, .hasilBersih {
+    font-weight: bold;
+  }
+  .warning {
+    background-color: yellow;
+  }
+  .fixed-column {
+    position: sticky;
+    left: 0;
+    background-color: #f2f2f2;
+    z-index: 1;
+  }
+  .animate-warning {
+    animation: blink 1s infinite alternate;
+  }
+  @keyframes blink {
+    0% { background-color: inherit; }
+    100% { background-color: yellow; }
+  }
+  
+  /* Keyframes untuk animasi 3D */
+@keyframes rotateCard {
+    0% {
+        transform: rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: rotateY(180deg) rotateX(10deg);
+    }
+    100% {
+        transform: rotateY(360deg) rotateX(0deg);
+    }
+}
+
+/* Efek 3D saat hover */
+.blog-post:hover {
+    transform: scale(1.05);
+}
+
+/* Efek animasi 3D */
+.animate {
+    animation: rotateCard 1s ease-in-out forwards;
+}
+
+/* Hover efek animasi */
+.blog-post:hover .animate {
+    animation: none;
+}
+
+/* Animasi masuk */
+@keyframes slideIn {
+    0% {
+        transform: translateY(50px) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Tambahkan kelas animasi */
+.slide-enter {
+    animation: slideIn 0.5s ease forwards;
+}
+
+/* Smooth Scroll */
+@keyframes smoothScroll {
+    from {
+        scroll-left: 100%;
+    }
+    to {
+        scroll-left: 0;
+    }
+}
+
+.smooth-scroll {
+    animation: smoothScroll 0.5s ease-in-out;
+}
+
+</style>
+</head>
+<body>
+   
+   
+   <div class="container">
+    <div id="artikel-1" class="blog-post">    
+
+<h2>Pesan Penggarapan Lahan Online</h2>
+<p>Silakan klik tombol di bawah ini untuk mengisi formulir pendaftaran.</p>
+<button onclick="showRegistrationForm()">Buat Pesanan</button>
+
+<div class="form-container" id="formContainer">
+    <span class="close" onclick="closeForm()">&times;</span>
+    <p class="error-message" id="errorMessage"></p>
+    
+    <form id="registrationForm" onsubmit="showConfirmation(event)">
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" name="nama" placeholder="Tulis nama Anda sesuai KTP" required>
+        <ul id="dropdown" class="hidden"></ul>
+        
+        <label for="kelompok">Kelompok Tani:</label>
+        <select id="kelompok" name="kelompok" required disabled>
+            <option value="">Pilih Kelompok Anda</option>
+        </select>
+        <label for="lokasi">Lokasi Lahan:</label>
+        <select id="lokasi" name="lokasi" required>
+            <option value="">Pilih Lokasi Lahan </option>
+            <option value="Handil Lok Bintan">Handil Lok Bintan</option>
+            <option value="Handil Bati-Bati">Handil Bati-Bati</option>
+            <option value="Handil Barkat Salamat">Handil Barkat Salamat</option>
+            <option value="Handil Batuah">Handil Batuah</option>
+            <option value="Handil Sampurna">Handil Sampurna</option>
+            <option value="Handil Murung">Handil Murung</option>
+        </select>
+        <label for="luasLahan">Luas Lahan (Borong):</label>
+        <input type="number" id="luasLahan" name="luasLahan" placeholder="Tulis jumlah luas lahannya" required>
+        <button type="submit">Kirim</button>
+        <br>
+        <br>
+    
+        <button onclick="contactAdmin()">Hubungi Admin via WhatsApp</button>
+    </form>
+</div>
+
+<div class="confirmation-container" id="confirmationContainer">
+    <div class="confirmation-box">
+        <h3>Konfirmasi Data</h3>
+        <p id="confirmNama"></p>
+        <p id="confirmKelompok"></p>
+        <p id="confirmLokasi"></p>
+        <p id="confirmLuasLahan"></p>
+        <div class="actions">
+            <button class="cancel" onclick="cancelConfirmation()">Batal</button>
+
+            <button class="confirm" onclick="submitForm()">Konfirmasi</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+     <div class="container">
+    <div id="artikel-1" class="blog-post">    
+
+<h2>Tabel Informasi Pertanian</h2>
+
+ <div class="table-container" id="tabel-1">
+  <table>
+    <thead>
+      <tr>
+        <th class="fixed-column">No.</th>
+        <th class="fixed-column">Nama Alat</th>
+        <th>Operator</th>
+        <th>Lokasi Lahan</th>
+        <th>Pemilik Lahan</th>
+        <th>Status Penggarapan</th>
+        <th>Luas Lahan (Borong)</th>
+        <th>Harga Perborong (Rp)</th>
+        <th>Total Pembayaran (Rp)</th>
+        <th>Status Pembayaran</th>
+        <th>Biaya Operasional (Rp)</th>
+        <th>Upah Operator (Rp)</th>
+        <th>Lainnya (Rp)</th>
+        <th>Hasil Bersih (Rp)</th>
+        <th>Pengingat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fixed-column">1</td>
+        <td class="fixed-column nama-alat">Traktor Yanmar</td>
+        <td>udin</td>
+        <td>Handil murung</td>
+        <td>PT. ABC</td>
+        <td class="status">Selesai digarap</td>
+        <td>63</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Belum Lunas</td>
+        <td>2.000.000</td>
+        <td>500.000</td>
+        <td></td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      <tr>
+        <td class="fixed-column">2</td>
+        <td class="fixed-column nama-alat">Traktor Kubota</td>
+        <td>Amat</td>
+        <td>Handil batuah</td>
+        <td>CV. XYZ</td>
+        <td class="status">Menunggu antrian</td>
+        <td>35</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Lunas</td>
+        <td>1.000.000</td>
+        <td>300.000</td>
+        <td>100.000</td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      <tr>
+        <td class="fixed-column">3</td>
+        <td class="fixed-column nama-alat">Traktor Yanmar</td>
+        <td>rahmat</td>
+        <td>Handil Bati Bati</td>
+        <td>PT. EFG</td>
+        <td class="status">selesai digarap</td>
+        <td>440</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Lunas</td>
+        <td>3.000.000</td>
+        <td>700.000</td>
+        <td>100.000
+        Ganti Oli</td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      <tr>
+        <td class="fixed-column">4</td>
+        <td class="fixed-column nama-alat">Traktor Kubota</td>
+        <td>amat</td>
+        <td>Handil batuah</td>
+        <td>CV. XYZ</td>
+        <td class="status">sedang digarap</td>
+        <td>60</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Lunas</td>
+        <td>2.400.000</td>
+        <td>600.000</td>
+        <td></td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      
+      <tr>
+        <td class="fixed-column">3</td>
+        <td class="fixed-column nama-alat">Traktor Yanmar</td>
+        <td>udin</td>
+        <td>Handil bati bati</td>
+        <td>PT. EFG</td>
+        <td class="status">selesai digarap</td>
+        <td>470</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Lunas</td>
+        <td>3.000.000</td>
+        <td>700.000</td>
+        <td>500.000</td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      <tr>
+        <td class="fixed-column">3</td>
+        <td class="fixed-column nama-alat">Traktor Yanmar</td>
+        <td>Anang</td>
+        <td>Handil batuah</td>
+        <td>PT. EFG</td>
+        <td class="status">selesai digarap</td>
+        <td>40</td>
+        <td>40.000</td>
+        <td class="total">0</td>
+        <td>Lunas</td>
+        <td>300.000</td>
+        <td>200.000</td>
+        <td>100.000</td>
+        <td class="hasilBersih">0</td>
+        <td class="pengingat"></td>
+      </tr>
+      
+      
+      
+    </tbody>
+  </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/0.7.28/ua-parser.min.js"></script>
+<script>
+    const petani = [
+        
+    { "nama": "Abdul Halid", "kelompok": "Setuju" },
+    { "nama": "Ahmad Sarwani", "kelompok": "Setuju" },
+    { "nama": "Anang Mahfud", "kelompok": "Setuju" },
+    { "nama": "Arbani Hasim", "kelompok": "Setuju" },
+    { "nama": "Ardani", "kelompok": "Setuju" },
+    { "nama": "Asbullah", "kelompok": "Setuju" },
+    { "nama": "Asran", "kelompok": "Setuju" },
+    { "nama": "Darmawati", "kelompok": "Setuju" },
+    { "nama": "Darmawi", "kelompok": "Setuju" },
+    { "nama": "Geby Ilena Bandrang", "kelompok": "Setuju" },
+    { "nama": "Hartati", "kelompok": "Setuju" },
+    { "nama": "Harwanto", "kelompok": "Setuju" },
+    { "nama": "Hasan Nur. MT", "kelompok": "Setuju" },
+    { "nama": "Hudari", "kelompok": "Setuju" },
+    { "nama": "Husaini", "kelompok": "Setuju" },
+    { "nama": "Imberi Fani", "kelompok": "Setuju" },
+    { "nama": "Junaidi", "kelompok": "Setuju" },
+    { "nama": "Kasiro", "kelompok": "Setuju" },
+    { "nama": "M. Isra", "kelompok": "Setuju" },
+    { "nama": "Mahmudin", "kelompok": "Setuju" },
+    { "nama": "Mardiansyah", "kelompok": "Setuju" },
+    { "nama": "Marhamis", "kelompok": "Setuju" },
+    { "nama": "Marthin Luther Bandrang, ST", "kelompok": "Setuju" },
+    { "nama": "Masita", "kelompok": "Setuju" },
+    { "nama": "Masniah", "kelompok": "Setuju" },
+    { "nama": "Mastan", "kelompok": "Setuju" },
+    { "nama": "Muhammad Ahdiat, ST", "kelompok": "Setuju" },
+    { "nama": "Muhammad Noor", "kelompok": "Setuju" },
+    { "nama": "Muhdi", "kelompok": "Setuju" },
+    { "nama": "Norhayah", "kelompok": "Setuju" },
+    { "nama": "Paridah", "kelompok": "Setuju" },
+    { "nama": "Ramli", "kelompok": "Setuju" },
+    { "nama": "Ramli", "kelompok": "Setuju" },
+    { "nama": "Sabarudin", "kelompok": "Setuju" },
+    { "nama": "Sahminan", "kelompok": "Setuju" },
+    { "nama": "Sapuani", "kelompok": "Setuju" },
+    { "nama": "Sapwani", "kelompok": "Setuju" },
+    { "nama": "Sidi", "kelompok": "Setuju" },
+    { "nama": "Siti Aisyah", "kelompok": "Setuju" },
+    { "nama": "Siti Nurhasanah", "kelompok": "Setuju" },
+    { "nama": "Siti Rukiyah", "kelompok": "Setuju" },
+    { "nama": "Sugiani", "kelompok": "Setuju" },
+    { "nama": "Suranto", "kelompok": "Setuju" },
+    { "nama": "Wahyudi", "kelompok": "Setuju" },
+    { "nama": "Yuliaman", "kelompok": "Setuju" },
+    
+    
+    { "nama": "Abdul Muis", "kelompok": "Bunga Padi" },
+    { "nama": "Abdul Rahman", "kelompok": "Bunga Padi" },
+    { "nama": "Abdullah", "kelompok": "Bunga Padi" },
+    { "nama": "Ahmad Fauzi", "kelompok": "Bunga Padi" },
+    { "nama": "Ahmad Royani", "kelompok": "Bunga Padi" },
+    { "nama": "Amiradi", "kelompok": "Bunga Padi" },
+    { "nama": "Anang Sayuti", "kelompok": "Bunga Padi" },
+    { "nama": "Andi", "kelompok": "Bunga Padi" },
+    { "nama": "Arbaniah", "kelompok": "Bunga Padi" },
+    { "nama": "Asikin", "kelompok": "Bunga Padi" },
+    { "nama": "Aspani", "kelompok": "Bunga Padi" },
+    { "nama": "Ardani", "kelompok": "Bunga Padi" },
+    { "nama": "Baihaqi Saputra", "kelompok": "Bunga Padi" },
+    { "nama": "Bakhtiar", "kelompok": "Bunga Padi" },
+    { "nama": "Barlian", "kelompok": "Bunga Padi" },
+    { "nama": "Dahlina", "kelompok": "Bunga Padi" },
+    { "nama": "Darmawan", "kelompok": "Bunga Padi" },
+    { "nama": "H. Muhammad Sahli", "kelompok": "Bunga Padi" },
+    { "nama": "H. Sarmadi", "kelompok": "Bunga Padi" },
+    { "nama": "Hadriansyah", "kelompok": "Bunga Padi" },
+    { "nama": "Hardiansyah", "kelompok": "Bunga Padi" },
+    { "nama": "Hermansyah", "kelompok": "Bunga Padi" },
+    { "nama": "Hj. Alpisah", "kelompok": "Bunga Padi" },
+    { "nama": "Hj. Hamidah", "kelompok": "Bunga Padi" },
+    { "nama": "Hj. Rabiah", "kelompok": "Bunga Padi" },
+    { "nama": "Hj. Radiah", "kelompok": "Bunga Padi" },
+    { "nama": "Hormansyah", "kelompok": "Bunga Padi" },
+    { "nama": "Humaidi", "kelompok": "Bunga Padi" },
+    { "nama": "Imansyah", "kelompok": "Bunga Padi" },
+    { "nama": "Jamhari", "kelompok": "Bunga Padi" },
+    { "nama": "Janiah", "kelompok": "Bunga Padi" },
+    { "nama": "Kurnia", "kelompok": "Bunga Padi" },
+    { "nama": "Lokman", "kelompok": "Bunga Padi" },
+    { "nama": "M. Nasir", "kelompok": "Bunga Padi" },
+    { "nama": "Mahrawi", "kelompok": "Bunga Padi" },
+    { "nama": "Mahyuni", "kelompok": "Bunga Padi" },
+    { "nama": "Marwiyah", "kelompok": "Bunga Padi" },
+    { "nama": "Masra", "kelompok": "Bunga Padi" },
+    { "nama": "Mastiah", "kelompok": "Bunga Padi" },
+    { "nama": "Muhammad Nor", "kelompok": "Bunga Padi" },
+    { "nama": "Muhammad Hadrani", "kelompok": "Bunga Padi" },
+    { "nama": "Muhammad Sulaiman", "kelompok": "Bunga Padi" },
+    { "nama": "Muhri", "kelompok": "Bunga Padi" },
+    { "nama": "Muhsin", "kelompok": "Bunga Padi" },
+    { "nama": "Mursidi", "kelompok": "Bunga Padi" },
+    { "nama": "Norbainah", "kelompok": "Bunga Padi" },
+    { "nama": "Nour Atiah", "kelompok": "Bunga Padi" },
+    { "nama": "Nurkani", "kelompok": "Bunga Padi" },
+    { "nama": "Rahbani", "kelompok": "Bunga Padi" },
+    { "nama": "Raudah", "kelompok": "Bunga Padi" },
+    { "nama": "Ruhani", "kelompok": "Bunga Padi" },
+    { "nama": "Rusdiana", "kelompok": "Bunga Padi" },
+    { "nama": "Rusdianor", "kelompok": "Bunga Padi" },
+    { "nama": "Ruslan", "kelompok": "Bunga Padi" },
+    { "nama": "Rusli Bakri", "kelompok": "Bunga Padi" },
+    { "nama": "Rusman", "kelompok": "Bunga Padi" },
+    { "nama": "Sadri", "kelompok": "Bunga Padi" },
+    { "nama": "Saman", "kelompok": "Bunga Padi" },
+    { "nama": "Samsuddin", "kelompok": "Bunga Padi" },
+    { "nama": "Selamat Abadi", "kelompok": "Bunga Padi" },
+    { "nama": "Siti Aisyah", "kelompok": "Bunga Padi" },
+    { "nama": "Siti Rohani", "kelompok": "Bunga Padi" },
+    { "nama": "Siti Sarah", "kelompok": "Bunga Padi" },
+    { "nama": "Subli", "kelompok": "Bunga Padi" },
+    { "nama": "Suhaimi", "kelompok": "Bunga Padi" },
+    { "nama": "Syafruddin", "kelompok": "Bunga Padi" },
+    { "nama": "Syahran", "kelompok": "Bunga Padi" },
+    { "nama": "Syarbani", "kelompok": "Bunga Padi" },
+    { "nama": "Thal'ah", "kelompok": "Bunga Padi" },
+    { "nama": "Tumiati", "kelompok": "Bunga Padi" },
+    { "nama": "Wahyudin", "kelompok": "Bunga Padi" }, 
+    
+    
+    
+    
+    { "nama": "A. Ardiansyah", "kelompok": "Batuah" },
+    { "nama": "Abdul Muis", "kelompok": "Batuah" },
+    { "nama": "Amrullah", "kelompok": "Batuah" },
+    { "nama": "Arbain", "kelompok": "Batuah" },
+    { "nama": "Arbain", "kelompok": "Batuah" },
+    { "nama": "Arbainah", "kelompok": "Batuah" },
+    { "nama": "Arifin", "kelompok": "Batuah" },
+    { "nama": "Arman Hidayad", "kelompok": "Batuah" },
+    { "nama": "Asmuni", "kelompok": "Batuah" },
+    { "nama": "", "kelompok": "Batuah" },
+    { "nama": "Bahrudin", "kelompok": "Batuah" },
+    { "nama": "Bainah", "kelompok": "Batuah" },
+    { "nama": "Barniah", "kelompok": "Batuah" },
+    { "nama": "Basran", "kelompok": "Batuah" },
+    { "nama": "Budiono, S.Pt", "kelompok": "Batuah" },
+    { "nama": "Darkati", "kelompok": "Batuah" },
+    { "nama": "Darmini", "kelompok": "Batuah" },
+    { "nama": "Darsiah", "kelompok": "Batuah" },
+    { "nama": "Diansyah", "kelompok": "Batuah" },
+    { "nama": "Fazrianor", "kelompok": "Batuah" },
+    { "nama": "Hadiah", "kelompok": "Batuah" },
+    { "nama": "Hanafi", "kelompok": "Batuah" },
+    { "nama": "Hatimah", "kelompok": "Batuah" },
+    { "nama": "Hermansyah", "kelompok": "Batuah" },
+    { "nama": "Hery Anwar", "kelompok": "Batuah" },
+    { "nama": "Hidayatullah", "kelompok": "Batuah" },
+    { "nama": "Hj. Ati", "kelompok": "Batuah" },
+    { "nama": "Husin", "kelompok": "Batuah" },
+    { "nama": "Jamhari", "kelompok": "Batuah" },
+    { "nama": "Jamri", "kelompok": "Batuah" },
+    { "nama": "Jani", "kelompok": "Batuah" },
+    { "nama": "Jasmani", "kelompok": "Batuah" },
+    { "nama": "Juwiyah", "kelompok": "Batuah" },
+    { "nama": "Kholipah", "kelompok": "Batuah" },
+    { "nama": "Lian", "kelompok": "Batuah" },
+    { "nama": "Lukman Nul Hakim", "kelompok": "Batuah" },
+    { "nama": "M. Aini", "kelompok": "Batuah" },
+    { "nama": "M. Ramzi", "kelompok": "Batuah" },
+    { "nama": "M. Vicky Putra", "kelompok": "Batuah" },
+    { "nama": "M. Aini", "kelompok": "Batuah" },
+    { "nama": "Mahmudin", "kelompok": "Batuah" },
+    { "nama": "Mahyuni", "kelompok": "Batuah" },
+    { "nama": "Mansyah", "kelompok": "Batuah" },
+    { "nama": "Maruni", "kelompok": "Batuah" },
+    { "nama": "Masri", "kelompok": "Batuah" },
+    { "nama": "Muhammad", "kelompok": "Batuah" },
+    { "nama": "Muhammad Alfiannor", "kelompok": "Batuah" },
+    { "nama": "Muhammad Ripai", "kelompok": "Batuah" },
+    { "nama": "Muliadi", "kelompok": "Batuah" },
+    { "nama": "Muliadi", "kelompok": "Batuah" },
+    { "nama": "Murniah", "kelompok": "Batuah" },
+    { "nama": "Musliadi", "kelompok": "Batuah" },
+    { "nama": "Nasrudin Ahmad", "kelompok": "Batuah" },
+    { "nama": "Noorhan", "kelompok": "Batuah" },
+    { "nama": "Nor Safini", "kelompok": "Batuah" },
+    { "nama": "Nordin", "kelompok": "Batuah" },
+    { "nama": "Norhan Ilham", "kelompok": "Batuah" },
+    { "nama": "Nurkadi", "kelompok": "Batuah" },
+    { "nama": "Nursehan", "kelompok": "Batuah" },
+    { "nama": "Pahmi Ariadi", "kelompok": "Batuah" },
+    { "nama": "Patimah Nor Aini", "kelompok": "Batuah" },
+    { "nama": "Pauzan", "kelompok": "Batuah" },
+    { "nama": "Radian Kamilah", "kelompok": "Batuah" },
+    { "nama": "Risnayati", "kelompok": "Batuah" },
+    { "nama": "Sabran", "kelompok": "Batuah" },
+    { "nama": "Sailillah", "kelompok": "Batuah" },
+    { "nama": "Salamah", "kelompok": "Batuah" },
+    { "nama": "Salamat", "kelompok": "Batuah" },
+    { "nama": "Salman", "kelompok": "Batuah" },
+    { "nama": "Sam Ani", "kelompok": "Batuah" },
+    { "nama": "Saniah", "kelompok": "Batuah" },
+    { "nama": "Saniansyah", "kelompok": "Batuah" },
+    { "nama": "Sariyana", "kelompok": "Batuah" },
+    { "nama": "Sarkani", "kelompok": "Batuah" },
+    { "nama": "Siti Aminah", "kelompok": "Batuah" },
+    { "nama": "Sri Maryati", "kelompok": "Batuah" },
+    { "nama": "Supiani", "kelompok": "Batuah" },
+    { "nama": "Syahrani", "kelompok": "Batuah" },
+    { "nama": "Tinah", "kelompok": "Batuah" },
+    { "nama": "Warnoto", "kelompok": "Batuah" },
+    { "nama": "Yahya", "kelompok": "Batuah" }, 
+    
+    
+    
+    { "nama": "A. Wardani", "kelompok": "Berkat Mulia" },
+    { "nama": "Ali Wardana", "kelompok": "Berkat Mulia" },
+    { "nama": "Arbain", "kelompok": "Berkat Mulia" },
+    { "nama": "Arbani", "kelompok": "Berkat Mulia" },
+    { "nama": "Ardani", "kelompok": "Berkat Mulia" },
+    { "nama": "Arnian", "kelompok": "Berkat Mulia" },
+    { "nama": "Aspiannor", "kelompok": "Berkat Mulia" },
+    { "nama": "Barasmi", "kelompok": "Berkat Mulia" },
+    { "nama": "Hairunazi", "kelompok": "Berkat Mulia" },
+    { "nama": "", "kelompok": "Berkat Mulia" },
+    { "nama": "Ili Rahmah", "kelompok": "Berkat Mulia" },
+    { "nama": "Jainal Abidin", "kelompok": "Berkat Mulia" },
+    { "nama": "Jubaidi", "kelompok": "Berkat Mulia" },
+    { "nama": "Juniadi", "kelompok": "Berkat Mulia" },
+    { "nama": "Khairiah", "kelompok": "Berkat Mulia" },
+    { "nama": "M. Satera", "kelompok": "Berkat Mulia" },
+    { "nama": "Mansyah", "kelompok": "Berkat Mulia" },
+    { "nama": "Marni", "kelompok": "Berkat Mulia" },
+    { "nama": "Marsiah", "kelompok": "Berkat Mulia" },
+    { "nama": "Marsinah", "kelompok": "Berkat Mulia" },
+    { "nama": "Masitah", "kelompok": "Berkat Mulia" },
+    { "nama": "Muhammad Basir", "kelompok": "Berkat Mulia" },
+    { "nama": "Muksin", "kelompok": "Berkat Mulia" },
+    { "nama": "Norhasanah", "kelompok": "Berkat Mulia" },
+    { "nama": "Parji", "kelompok": "Berkat Mulia" },
+    { "nama": "Rinie Shalehah", "kelompok": "Berkat Mulia" },
+    { "nama": "Samsul Bahri", "kelompok": "Berkat Mulia" },
+    { "nama": "Samsul Hadi", "kelompok": "Berkat Mulia" },
+    { "nama": "Sandri", "kelompok": "Berkat Mulia" },
+    { "nama": "Sarinah", "kelompok": "Berkat Mulia" },
+    { "nama": "Sarman", "kelompok": "Berkat Mulia" },
+    { "nama": "Wardani", "kelompok": "Berkat Mulia" }, 
+    
+    
+    
+    
+    { "nama": "Abdul Rahim", "kelompok": "Berkat Mulia" },
+    { "nama": "Aida", "kelompok": "Berkat Mulia" },
+    { "nama": "Aisyah", "kelompok": "Berkat Mulia" },
+    { "nama": "Amat Juanda", "kelompok": "Berkat Mulia" },
+    { "nama": "Ani", "kelompok": "Berkat Mulia" },
+    { "nama": "Arbainah", "kelompok": "Berkat Mulia" },
+    { "nama": "Armansyah", "kelompok": "Berkat Mulia" },
+    { "nama": "Baini", "kelompok": "Berkat Mulia" },
+    { "nama": "Fadliansyah", "kelompok": "Berkat Mulia" },
+    { "nama": "Gusti Nor Herliyani", "kelompok": "Berkat Mulia" },
+    { "nama": "Hamsani", "kelompok": "Berkat Mulia" },
+    { "nama": "Jamilah", "kelompok": "Berkat Mulia" },
+    { "nama": "Jarkasi", "kelompok": "Berkat Mulia" },
+    { "nama": "Jumriah", "kelompok": "Berkat Mulia" },
+    { "nama": "M. Agus Salim", "kelompok": "Berkat Mulia" },
+    { "nama": "Masni", "kelompok": "Berkat Mulia" },
+    { "nama": "Masri", "kelompok": "Berkat Mulia" },
+    { "nama": "Misraji", "kelompok": "Berkat Mulia" },
+    { "nama": "Muhammad Fachrin", "kelompok": "Berkat Mulia" },
+    { "nama": "Mukeri", "kelompok": "Berkat Mulia" },
+    { "nama": "Nordiansyah", "kelompok": "Berkat Mulia" },
+    { "nama": "Pahrurrazi", "kelompok": "Berkat Mulia" },
+    { "nama": "Parhan", "kelompok": "Berkat Mulia" },
+    { "nama": "Parjiah", "kelompok": "Berkat Mulia" },
+    { "nama": "Pauzan", "kelompok": "Berkat Mulia" },
+    { "nama": "Sahrani", "kelompok": "Berkat Mulia" },
+    { "nama": "Sapwani", "kelompok": "Berkat Mulia" },
+    { "nama": "Tsaniah", "kelompok": "Berkat Mulia" },
+    { "nama": "Usman", "kelompok": "Berkat Mulia" }, 
+    
+    
+    
+    { "nama": "Aisyah", "kelompok": "Sumber Tani" },
+    { "nama": "Arbainah", "kelompok": "Sumber Tani" },
+    { "nama": "Arbani", "kelompok": "Sumber Tani" },
+    { "nama": "Bintang", "kelompok": "Sumber Tani" },
+    { "nama": "Hairani", "kelompok": "Sumber Tani" },
+    { "nama": "Husni Rahman", "kelompok": "Sumber Tani" },
+    { "nama": "Jamhuri", "kelompok": "Sumber Tani" },
+    { "nama": "Junaidi", "kelompok": "Sumber Tani" },
+    { "nama": "Kurnia", "kelompok": "Sumber Tani" },
+    { "nama": "Marjuni", "kelompok": "Sumber Tani" },
+    { "nama": "Maya", "kelompok": "Sumber Tani" },
+    { "nama": "Muhammad Jarkasi Bj.", "kelompok": "Sumber Tani" },
+    { "nama": "Muhammad Muhidin", "kelompok": "Sumber Tani" },
+    { "nama": "Muslimah", "kelompok": "Sumber Tani" },
+    { "nama": "Nasrullah", "kelompok": "Sumber Tani" },
+    { "nama": "Norhalimah", "kelompok": "Sumber Tani" },
+    { "nama": "Ramlah", "kelompok": "Sumber Tani" },
+    { "nama": "Risnaniah", "kelompok": "Sumber Tani" },
+    { "nama": "Rusmini", "kelompok": "Sumber Tani" },
+    { "nama": "Salbiyah", "kelompok": "Sumber Tani" },
+    { "nama": "Saudah", "kelompok": "Sumber Tani" },
+    { "nama": "Subeli", "kelompok": "Sumber Tani" },
+    { "nama": "Supia", "kelompok": "Sumber Tani" },
+    { "nama": "Syahrani", "kelompok": "Sumber Tani" },
+    { "nama": "Syarifuddin", "kelompok": "Sumber Tani" },
+    { "nama": "Yurdani", "kelompok": "Sumber Tani" },
+    { "nama": "Yusran", "kelompok": "Sumber Tani" },
+    { "nama": "Zainab", "kelompok": "Sumber Tani" },
+    { "nama": "Zaiturrahman", "kelompok": "Sumber Tani" }, 
+    
+    
+    
+    { "nama": "Ata Suranta", "kelompok": "Poktan Sepakat" },
+    { "nama": "Ikin", "kelompok": "Poktan Sepakat" },
+    { "nama": "Imas", "kelompok": "Poktan Sepakat" },
+    { "nama": "Irda Kurniawan", "kelompok": "Poktan Sepakat" },
+    { "nama": "Irmah", "kelompok": "Poktan Sepakat" },
+    { "nama": "Irwan Gunawan", "kelompok": "Poktan Sepakat" },
+    { "nama": "Jaya", "kelompok": "Poktan Sepakat" },
+    { "nama": "Karwih", "kelompok": "Poktan Sepakat" },
+    { "nama": "Ranem", "kelompok": "Poktan Sepakat" },
+    { "nama": "", "kelompok": "Poktan Sepakat" },
+    { "nama": "Sali Santoso", "kelompok": "Poktan Sepakat" },
+    { "nama": "Siti Suryani", "kelompok": "Poktan Sepakat" },
+    { "nama": "Tahmid", "kelompok": "Poktan Sepakat" },
+    { "nama": "Unih", "kelompok": "Poktan Sepakat" }, 
+    
+    
+    
+    
+    
+    { "nama": "Ahmad Nur Rohman", "kelompok": "Bunga Padi II" },
+    { "nama": "Arbani", "kelompok": "Bunga Padi II" },
+    { "nama": "Emuh", "kelompok": "Bunga Padi II" },
+    { "nama": "Fauji", "kelompok": "Bunga Padi II" },
+    { "nama": "Dudung", "kelompok": "Bunga Padi II" },
+    { "nama": "Horman", "kelompok": "Bunga Padi II" },
+    { "nama": "Juniansyah", "kelompok": "Bunga Padi II" },
+    { "nama": "M. Saubari", "kelompok": "Bunga Padi II" },
+    { "nama": "Muhammad Nor", "kelompok": "Bunga Padi II" },
+    { "nama": "Muhammad Misransyah", "kelompok": "Bunga Padi II" },
+    { "nama": "Mukhtar", "kelompok": "Bunga Padi II" },
+    { "nama": "Mukhsin", "kelompok": "Bunga Padi II" },
+    { "nama": "Salim", "kelompok": "Bunga Padi II" },
+    { "nama": "Syamsuri", "kelompok": "Bunga Padi II" },
+    { "nama": "Wardi", "kelompok": "Bunga Padi II" },
+
+
+    
+    
+    
+    
+    { "nama": "Abdul Rahman", "kelompok": "Raudah" },
+    { "nama": "Adzmi", "kelompok": "Raudah" },
+    { "nama": "Ahmad Yani", "kelompok": "Raudah" },
+    { "nama": "Baihaki", "kelompok": "Raudah" },
+    { "nama": "Hari Sulaiman", "kelompok": "Raudah" },
+    { "nama": "Istiqamah", "kelompok": "Raudah" },
+    { "nama": "Jamhuri", "kelompok": "Raudah" },
+    { "nama": "Kamsiah", "kelompok": "Raudah" },
+    { "nama": "Khofidah", "kelompok": "Raudah" },
+    { "nama": "Syahrozi", "kelompok": "Raudah" },
+    { "nama": "Koyah", "kelompok": "Raudah" },
+    { "nama": "Kutiah", "kelompok": "Raudah" },
+    { "nama": "Misran", "kelompok": "Raudah" },
+    { "nama": "Mohammad Sony Setyawan", "kelompok": "Raudah" },
+    { "nama": "Muhammad Irfan", "kelompok": "Raudah" },
+    { "nama": "Muhammad Sahid", "kelompok": "Raudah" },
+    { "nama": "Murjani", "kelompok": "Raudah" },
+    { "nama": "Nasikin", "kelompok": "Raudah" },
+    { "nama": "Norfatimah", "kelompok": "Raudah" },
+    { "nama": "", "kelompok": "Raudah" },
+    { "nama": "Ratu Saibah", "kelompok": "Raudah" },
+    { "nama": "Rusmilah", "kelompok": "Raudah" },
+    { "nama": "Sarman", "kelompok": "Raudah" },
+    { "nama": "Sarman", "kelompok": "Raudah" },
+    { "nama": "Siti Nur", "kelompok": "Raudah" },
+    { "nama": "Siti Rusniah", "kelompok": "Raudah" },
+    { "nama": "Suparlan", "kelompok": "Raudah" },
+    { "nama": "Yusran", "kelompok": "Raudah" }, 
+
+
+
+
+     { "nama": "Agus Susyanto S.P", "kelompok": "PPL Sampurna" }, 
+
+
+    ];
+
+    function showRegistrationForm() {
+        document.getElementById('formContainer').classList.add('show');
+    }
+
+    function closeForm() {
+        document.getElementById('formContainer').classList.remove('show');
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('kelompok').disabled = true;
+        document.getElementById('registrationForm').reset();
+    }
+
+    const input = document.getElementById('nama');
+    const dropdown = document.getElementById('dropdown');
+
+    input.addEventListener('input', function() {
+        const value = input.value.trim().toLowerCase();
+
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+
+        if (value) {
+            const filteredNames = petani.filter(petani => petani.nama.toLowerCase().includes(value));
+            if (filteredNames.length > 0) {
+                dropdown.classList.remove('hidden');
+                filteredNames.forEach(petani => {
+                    const li = document.createElement('li');
+                    li.textContent = petani.nama;
+                    li.addEventListener('click', function() {
+                        input.value = petani.nama;
+                        dropdown.classList.add('hidden');
+                        updateKelompok(petani.nama);
+                    });
+                    dropdown.appendChild(li);
+                });
+            }
+        } else {
+            const kelompokSelect = document.getElementById('kelompok');
+            kelompokSelect.disabled = true;
+            kelompokSelect.innerHTML = '<option value="">Pilih Kelompok Anda</option>';
+        }
+    });
+
+    function updateKelompok(nama) {
+        const kelompokOptions = petani.filter(p => p.nama === nama);
+
+        const kelompokSelect = document.getElementById('kelompok');
+        kelompokSelect.disabled = true;
+        kelompokSelect.innerHTML = '<option value="">Pilih Kelompok Anda</option>';
+
+        if (kelompokOptions.length > 0) {
+            kelompokSelect.disabled = false;
+            if (kelompokOptions.length === 1) {
+                const singleOption = kelompokOptions[0].kelompok;
+                kelompokSelect.innerHTML = `<option value="${singleOption}">${singleOption}</option>`;
+            } else {
+                kelompokOptions.forEach(option => {
+                    const opt = document.createElement('option');
+                    opt.value = option.kelompok;
+                    opt.textContent = option.kelompok;
+                    kelompokSelect.appendChild(opt);
+                });
+            }
+        }
+    }
+
+    function validateForm() {
+        const nama = document.getElementById('nama').value;
+        const kelompok = document.getElementById('kelompok').value;
+
+        if (!kelompok) {
+            document.getElementById('errorMessage').textContent = `Halo ${nama}, mohon maaf untuk saat ini nama Anda belum terbaca di sistem kami. Silakan hubungi admin untuk informasi lebih lanjut.`;
+            document.getElementById('errorMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('errorMessage').style.display = 'none';
+            }, 5000);
+            return false;
+        }
+        return true;
+    }
+
+    function showConfirmation(event) {
+        event.preventDefault();
+        if (validateForm()) {
+            const luasLahan = document.getElementById('luasLahan').value;
+            document.getElementById('confirmNama').textContent = 'Nama: ' + document.getElementById('nama').value;
+            document.getElementById('confirmKelompok').textContent = 'Kelompok: ' + document.getElementById('kelompok').value;
+            document.getElementById('confirmLokasi').textContent = 'Lokasi: ' + document.getElementById('lokasi').value;
+            document.getElementById('confirmLuasLahan').textContent = 'Luas Lahan: ' + luasLahan + ' borong';
+
+            document.getElementById('confirmationContainer').style.display = 'flex';
+        }
+    }
+
+    function cancelConfirmation() {
+        document.getElementById('confirmationContainer').style.display = 'none';
+    }
+
+    async function submitForm() {
+        const nama = document.getElementById('nama').value;
+        const kelompok = document.getElementById('kelompok').value;
+        const lokasi = document.getElementById('lokasi').value;
+        const luasLahan = document.getElementById('luasLahan').value;
+
+        const parser = new UAParser();
+        const result = parser.getResult();
+        const deviceInfo = `Merk: ${result.device.vendor || 'N/A'}, Tipe: ${result.device.model || 'N/A'}`;
+        const os = result.os.name + ' ' + result.os.version;
+
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipData = await ipResponse.json();
+        const location = `${ipData.city}, ${ipData.region}, ${ipData.country_name}`;
+
+        const message = `Halo admin, saya ingin mengupahkan penggarapan lahan dengan rincian sebagai berikut:\n\n` +
+                        `*Nama:*               ${nama}\n` +
+                        `*Kelompok Tani:*   ${kelompok}\n` +
+                        `*Lokasi:*              ${lokasi}\n` +
+                        `*Luas Lahan:*       ${luasLahan} borong\n` +
+                        `*Perangkat:*             
+                      ${deviceInfo}, 
+                      OS: ${os}\n
+                        
+               
+ Tolong konfirmasi 
+        dan atur jadwalnya
+                                 
+                                 `;
+
+        const whatsappUrl = `https://wa.me/6285822477414?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+
+        document.getElementById('confirmationContainer').style.display = 'none';
+        document.getElementById('formContainer').classList.remove('show');
+        document.getElementById('registrationForm').reset();
+    }
+    
+      // Harga default per borong
+  var hargaPerborong = 20000;
+
+  // Fungsi untuk menghitung dan mengupdate nilai pada tabel
+  function updateTable() {
+    var totalElements = document.querySelectorAll('.total');
+    var hasilBersihElements = document.querySelectorAll('.hasilBersih');
+    var statusElements = document.querySelectorAll('.status');
+    var pengingatElements = document.querySelectorAll('.pengingat');
+    var namaAlatElements = document.querySelectorAll('.nama-alat');
+
+    // Objek untuk menyimpan total luas lahan per alat
+    var alatLuasLahan = {};
+    // Objek untuk menyimpan kapan terakhir kali "Ganti oli" dilakukan per alat
+    var terakhirGantiOli = {};
+
+    totalElements.forEach(function(element, index) {
+      var luasLahan = parseFloat(element.parentElement.children[6].textContent); // Ambil luas lahan
+      var totalPembayaran = luasLahan * hargaPerborong;
+
+      // Setel nilai total pembayaran pada elemen
+      element.textContent = 'Rp ' + totalPembayaran.toLocaleString('id-ID');
+
+      // Hitung hasil bersih dan setel nilainya
+      var biayaOperasional = parseInt(element.parentElement.children[10].textContent.replace('Rp ', '').replace(/\./g, '')) || 0;
+      var upahOperator = parseInt(element.parentElement.children[11].textContent.replace('Rp ', '').replace(/\./g, '')) || 0;
+      var lainnyaText = element.parentElement.children[12].textContent.toLowerCase();
+      var lainnya = (lainnyaText.includes('ganti oli') ? 0 : parseInt(lainnyaText.replace('rp ', '').replace(/\./g, ''))) || 0;
+      var hasilBersihValue = totalPembayaran - (biayaOperasional + upahOperator + lainnya);
+      hasilBersihElements[index].textContent = 'Rp ' + hasilBersihValue.toLocaleString('id-ID');
+
+      // Ubah status penggarapan dari berbagai penulisan yang mungkin menjadi standar "Selesai"
+      var statusText = statusElements[index].textContent.toLowerCase();
+      if (statusText.includes('selesai')) {
+        statusElements[index].textContent = 'Selesai';
+      }
+
+      // Ubah status penggarapan dari 'Menunggu antrian' menjadi 'Sedang digarap'
+      if (statusElements[index].textContent.toLowerCase() === 'sedang digarap') {
+        statusElements[index].classList.add('garap');
+      } else {
+        statusElements[index].classList.remove('garap');
+      }
+
+      // Update waktu terakhir ganti oli
+      var namaAlat = element.parentElement.children[1].textContent.toLowerCase();
+      if (!alatLuasLahan[namaAlat]) {
+        alatLuasLahan[namaAlat] = 0;
+        terakhirGantiOli[namaAlat] = -1;  // Awal dengan indeks tidak valid
+      }
+      if (lainnyaText.includes('ganti oli')) {
+        terakhirGantiOli[namaAlat] = index;
+        alatLuasLahan[namaAlat] = 0;  // Reset luas lahan setelah ganti oli
+      }
+
+      // Hitung total luas lahan yang digarap oleh alat yang sama hanya jika status penggarapan 'Selesai'
+      if (statusText.includes('selesai')) {
+        if (index > terakhirGantiOli[namaAlat]) {
+          alatLuasLahan[namaAlat] += luasLahan;
+        }
+
+        // Setel pengingat jika total luas lahan lebih dari 500 dan tidak ada "Ganti oli" sejak ganti oli terakhir
+        if (alatLuasLahan[namaAlat] > 500) {
+          pengingatElements[index].textContent = 'Ganti oli';
+          pengingatElements[index].classList.add('warning');
+          namaAlatElements[index].classList.add('animate-warning');
+        } else {
+          pengingatElements[index].textContent = '';
+          pengingatElements[index].classList.remove('warning');
+          namaAlatElements[index].classList.remove('animate-warning');
+        }
+      } else {
+        pengingatElements[index].textContent = '';
+        pengingatElements[index].classList.remove('warning');
+        namaAlatElements[index].classList.remove('animate-warning');
+      }
+    });
+  }
+function contactAdmin() {
+    var phoneNumber = '6281256667937';  // Ganti dengan nomor WhatsApp admin
+    var message = 'Halo, saya butuh bantuan mengenai formulir penggarapan lahan.';
+    var url = 'https://wa.me/' + phoneNumber + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank');
+}
+
+  // Panggil fungsi untuk pertama kali saat halaman dimuat
+  updateTable();
+  
+   
+</script>
+
+</body>
+</html>
